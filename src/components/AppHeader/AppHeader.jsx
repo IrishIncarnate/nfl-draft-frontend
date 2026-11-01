@@ -2,9 +2,9 @@ import { NavLink } from 'react-router-dom'
 import './AppHeader.css'
 
 const NAV_ITEMS = [
+  { to: '/board', label: 'Big Board' },
   { to: '/prospects', label: 'Prospect DB' },
   // Future routes:
-  // { to: '/board', label: 'Big Board' },
   // { to: '/live', label: '🔴 Live Draft' },
   // { to: '/time-machine', label: 'Time Machine' },
 ]

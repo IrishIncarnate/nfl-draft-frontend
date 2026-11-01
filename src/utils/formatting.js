@@ -32,20 +32,23 @@ export function statusClass(status) {
 
 // Position color accent lookup (for styling rows / position badges)
 const POSITION_COLORS = {
-  QB:   '#f87171',
-  RB:   '#4ade80',
-  WR:   '#60a5fa',
-  TE:   '#a78bfa',
-  OT:   '#f59e0b',
-  OG:   '#fb923c',
-  OC:   '#fbbf24',
-  EDGE: '#34d399',
-  DT:   '#22d3ee',
-  LB:   '#818cf8',
-  CB:   '#e879f9',
-  S:    '#f472b6',
-  K:    '#94a3b8',
-  P:    '#94a3b8',
+  QB:       '#f87171',
+  RB:       '#4ade80',
+  WR:       '#60a5fa',
+  TE:       '#a78bfa',
+  OT:       '#f59e0b',
+  OG:       '#fb923c',
+  OC:       '#fbbf24',
+  IOL:      '#fb923c',
+  EDGE:     '#34d399',
+  DT:       '#22d3ee',
+  LB:       '#818cf8',
+  'OTB LB': '#818cf8',
+  CB:       '#e879f9',
+  S:        '#f472b6',
+  SAF:      '#f472b6',
+  K:        '#94a3b8',
+  P:        '#94a3b8',
 }
 
 export function positionColor(pos) {
@@ -57,4 +60,14 @@ export function formatHeight(inches) {
   const ft = Math.floor(inches / 12)
   const ins = (inches % 12).toFixed(1)
   return `${ft}'${ins}"`
+}
+
+export function normalizePlayerName(name) {
+  if (!name || typeof name !== 'string') return ''
+  let n = name.trim()
+  if (n.includes(',')) {
+    const parts = n.split(',')
+    n = `${parts[1].trim()} ${parts[0].trim()}`
+  }
+  return n.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim()
 }
