@@ -1,0 +1,106 @@
+.app-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: 0 var(--space-xl);
+  background: rgba(10, 12, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+/* Brand */
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+  margin-right: var(--space-lg);
+}
+
+.header-logo {
+  font-size: 1.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px rgba(176, 135, 58, 0.5));
+}
+
+.header-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.header-subtitle {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Nav */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.header-nav-link {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.header-nav-link:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-2);
+}
+
+.header-nav-link--active {
+  color: var(--color-accent-light);
+  background: rgba(0, 118, 182, 0.12);
+}
+
+.header-nav-link--active:hover {
+  background: rgba(0, 118, 182, 0.18);
+}
+
+/* Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-left: auto;
+}
+
+.header-gh-link {
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 640px) {
+  .app-header {
+    padding: 0 var(--space-md);
+    gap: var(--space-md);
+  }
+  .header-subtitle { display: none; }
+  .header-gh-link span { display: none; }
+}

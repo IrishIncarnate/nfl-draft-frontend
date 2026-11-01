@@ -1,0 +1,375 @@
+/* ===================================================
+   DLB NFL Draft Board — Global Design System
+   =================================================== */
+
+/* --- Google Fonts are loaded in index.html --- */
+
+/* --- CSS Custom Properties (Design Tokens) --- */
+:root {
+  /* Colors */
+  --color-bg: #0a0c12;
+  --color-surface: #11141f;
+  --color-surface-2: #181c2b;
+  --color-surface-3: #1e2338;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+
+  /* Brand — Detroit Lions inspired blues + gold */
+  --color-accent: #0076b6;
+  --color-accent-light: #1a9dd9;
+  --color-accent-glow: rgba(0, 118, 182, 0.25);
+  --color-gold: #b0873a;
+  --color-gold-light: #d4a94e;
+  --color-gold-glow: rgba(176, 135, 58, 0.25);
+
+  /* Text */
+  --color-text-primary: #f0f2f8;
+  --color-text-secondary: #8b93b0;
+  --color-text-muted: #555d7a;
+
+  /* Tier Colors */
+  --tier-1: #4ade80;
+  --tier-2: #60a5fa;
+  --tier-3: #f59e0b;
+  --tier-4: #f87171;
+  --tier-5: #a78bfa;
+
+  /* Status */
+  --color-success: #4ade80;
+  --color-warning: #f59e0b;
+  --color-error: #f87171;
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Outfit', 'Inter', sans-serif;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-accent: 0 0 20px var(--color-accent-glow);
+  --shadow-gold: 0 0 20px var(--color-gold-glow);
+
+  /* Transitions */
+  --transition-fast: 120ms ease;
+  --transition-base: 220ms ease;
+  --transition-slow: 400ms ease;
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --header-height: 60px;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Subtle grid texture overlay on body */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 118, 182, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(176, 135, 58, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+a {
+  color: var(--color-accent-light);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--color-text-primary); }
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-surface-3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* --- Layout Shell --- */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg);
+  max-height: calc(100vh - var(--header-height));
+}
+
+/* --- Page Header --- */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* --- Cards / Surfaces --- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+}
+
+.card-glass {
+  background: rgba(17, 20, 31, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+.btn-primary:hover {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent-light);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
+}
+.btn-ghost:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.btn-active {
+  background: var(--color-surface-3);
+  color: var(--color-accent-light);
+  border-color: var(--color-accent);
+}
+
+/* --- Form Inputs --- */
+.input, .select {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+}
+
+.input::placeholder { color: var(--color-text-muted); }
+
+.input:focus, .select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-glow);
+}
+
+.select option { background: var(--color-surface-2); }
+
+/* --- Labels --- */
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+/* --- Badges --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-tier-1 { background: rgba(74, 222, 128, 0.15); color: var(--tier-1); border: 1px solid rgba(74, 222, 128, 0.3); }
+.badge-tier-2 { background: rgba(96, 165, 250, 0.15); color: var(--tier-2); border: 1px solid rgba(96, 165, 250, 0.3); }
+.badge-tier-3 { background: rgba(245, 158, 11, 0.15); color: var(--tier-3); border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-tier-4 { background: rgba(248, 113, 113, 0.15); color: var(--tier-4); border: 1px solid rgba(248, 113, 113, 0.3); }
+.badge-tier-5 { background: rgba(167, 139, 250, 0.15); color: var(--tier-5); border: 1px solid rgba(167, 139, 250, 0.3); }
+
+.badge-prospect { background: rgba(0, 118, 182, 0.15); color: var(--color-accent-light); border: 1px solid rgba(0, 118, 182, 0.3); }
+.badge-pro { background: rgba(176, 135, 58, 0.15); color: var(--color-gold-light); border: 1px solid rgba(176, 135, 58, 0.3); }
+
+/* --- Position Badges --- */
+.pos-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--color-surface-3);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* --- Stat Value --- */
+.stat-good { color: var(--tier-1); font-weight: 600; }
+.stat-warn { color: var(--tier-3); font-weight: 600; }
+.stat-null { color: var(--color-text-muted); font-style: italic; font-size: 0.8em; }
+
+/* --- Loading / Spinner --- */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  min-height: 300px;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+/* --- Error State --- */
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  min-height: 300px;
+  color: var(--color-error);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* --- Dividers --- */
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-lg) 0;
+}
+
+/* --- Utility --- */
+.text-muted { color: var(--color-text-secondary); }
+.text-small { font-size: 0.8125rem; }
+.text-mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85em; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
