@@ -1,16 +1,71 @@
-# React + Vite
+# NFL Draft Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern, high-performance web frontend for the **2026 NFL Draft Board & Prospect Database**. Built with **React 19**, **Vite**, **TanStack Table v8**, and **TanStack Query**.
 
-Currently, two official plugins are available:
+Designed with a sleek Detroit Lions glassmorphism theme (`#0076B6` Honolulu Blue + `#B0873A` Vintage Gold accents).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Quick Start (Local Development)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Start the FastAPI Backend
+In your backend repository (`nfl-draft-app`):
 
-## Expanding the Oxlint configuration
+```pwsh
+# Activate conda environment and run FastAPI
+conda activate nfl-draft-app-v2
+uvicorn api.main:app --reload --port 8000
+```
+Backend API will be running at: `http://localhost:8000` (Docs: `http://localhost:8000/docs`)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### 2. Start the React Frontend
+In this repository (`nfl-draft-frontend`):
+
+```pwsh
+npm install
+npm run dev
+```
+Frontend will be available at: `http://localhost:5173`
+
+Vite dev server is pre-configured with a reverse proxy forwarding all `/api` requests to `http://localhost:8000`.
+
+---
+
+## 🏗️ Project Architecture
+
+```
+nfl-draft-frontend/
+├── src/
+│   ├── api/
+│   │   └── client.js             # Centralized API fetcher (dev proxy / prod baseUrl)
+│   ├── components/
+│   │   ├── AppHeader/            # Glassmorphism navigation & brand header
+│   │   ├── FilterPanel/          # Position grid, tiers, status toggles, search
+│   │   ├── ProspectModal/        # Scouting detail, rankings, athletic metrics & data lineage
+│   │   └── ProspectTable/        # TanStack Table v8 sortable grid with rank & status badges
+│   ├── hooks/
+│   │   └── useProspects.js       # TanStack Query hooks (caching, auto-refresh)
+│   ├── pages/
+│   │   ├── Prospects.jsx         # Prospect Database view + summary KPI cards
+│   │   └── Prospects.css
+│   ├── utils/
+│   │   └── formatting.js         # Numbers, ranks, positions, and tier formatting
+│   ├── App.jsx                   # Shell layout and React Router routes
+│   ├── index.css                 # Global design system & theme tokens
+│   └── main.jsx
+├── vite.config.js                # Vite config + dev proxy to FastAPI
+└── package.json
+```
+
+---
+
+## 🌐 Production Deployment (Vercel)
+
+1. Push this repository to GitHub.
+2. Link the repository to [Vercel](https://vercel.com).
+3. Set the build settings:
+   - **Framework Preset**: Vite
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. Add the environment variable:
+   - `VITE_API_URL`: Your deployed backend URL on Render (e.g. `https://nfl-draft-api.onrender.com`)
